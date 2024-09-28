@@ -8,14 +8,15 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+
 public class TelaCadastro extends JFrame{
-        private JPanel painel = new JPanel();
+    private JPanel painel = new JPanel();
     private Border borda = BorderFactory.createLineBorder(Color.GRAY, 1);
 
     private JTextField nome;
     private JTextField cpf;
     private JPasswordField senha;
-    private TelaCadastroController control;
+    private TelaCadastroController control = new TelaCadastroController(TelaCadastro.this);
 
     public TelaCadastro() {
         configurarJanela();
