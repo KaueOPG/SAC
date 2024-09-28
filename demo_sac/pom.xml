@@ -18,8 +18,8 @@
             <artifactId>maven-assembly-plugin</artifactId>
             <configuration>
             <archive>
-                <manifest>br.com.github.kaueopg.sac.Sac
-                <mainClass></mainClass>
+                <manifest>
+                <mainClass>br.com.github.kaueopg.sac.Sac</mainClass>
                 </manifest>
             </archive>
             <descriptorRefs>
