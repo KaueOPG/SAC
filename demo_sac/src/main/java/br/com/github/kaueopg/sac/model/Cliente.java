@@ -11,11 +11,10 @@ public class Cliente {
     public Cliente() {
     }
     
-    public Cliente(String nome, String cpf, String senha, List<Pedido> pedidos) {
+    public Cliente(String nome, String cpf, String senha) {
         this.nome = nome;
         this.cpf = cpf;
         this.senha = senha;
-        this.pedidos = pedidos;
     }
 
     public String getNome() {
