@@ -12,7 +12,7 @@ public class TelaClienteController {
     private TelaCliente tela;
     private Cliente cliente;
 
-    public TelaClienteController( TelaCliente tela, Cliente cliente){
+    public TelaClienteController(TelaCliente tela, Cliente cliente){
         this.cliente = cliente;
         this.tela = tela;
     }
@@ -44,13 +44,23 @@ public class TelaClienteController {
         }
         if(ValidarCPF.validaCPF(cpf) == true && cpf.isEmpty() == false)
         {
-            cliente.setSenha(senha);
+            cliente.setCpf(cpf);
             verificaAlteracoes = true;
         }
         if(verificaAlteracoes == true)
         {
             ClientePersistence clientePersistence = new ClientePersistence();
             List<Cliente> clientes = clientePersistence.findAll();
+
+            for(Cliente clienteAntigo : clientes)
+                if(clienteAntigo.getCpf().matches(cliente.getCpf()))
+                {
+                    clientes.remove(clienteAntigo);
+                    clientes.add(cliente);
+                    break;
+                }
+            new TelaCliente(cliente);
+            tela.dispose();
             clientePersistence.save(clientes);
         }
         return verificaAlteracoes;
