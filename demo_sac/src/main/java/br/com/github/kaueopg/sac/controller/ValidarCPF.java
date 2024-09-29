@@ -12,7 +12,7 @@ public class ValidarCPF {
     {
         ClientePersistence clientePersistence = new ClientePersistence();
         List<Cliente> clientes = clientePersistence.findAll();
-
+        System.out.println(cpf);
         if(cpf.matches(regex) == false)
             return false;
         

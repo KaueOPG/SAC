@@ -26,15 +26,15 @@ public class TelaInicialController {
             return;
         }
 
-        for(Cliente cliente: clientes)
+        for(Cliente cliente: clientes){
             if(cliente.getCpf().matches(cpf) == true)
                 if(cliente.getSenha().matches(senha) == true)
                 {
-                    new TelaCliente();
+                    new TelaCliente(cliente);
                     tela.dispose();
                     return;
                 }
-
+        }
         JOptionPane.showMessageDialog(tela, "CPF ou senha incorretos.", "Erro", JOptionPane.ERROR_MESSAGE);
     }
 

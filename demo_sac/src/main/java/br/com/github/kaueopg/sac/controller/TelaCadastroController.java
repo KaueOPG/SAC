@@ -17,25 +17,20 @@ public class TelaCadastroController {
         this.tela = tela;
     }
 
-    public void finalizar(String nome, String cpf, String senha)
+    public void finalizar(String cpf, String nome, String senha)
     {
         ClientePersistence clientePersistence = new ClientePersistence();
         List<Cliente> clientes = clientePersistence.findAll();
-
-        if(clientes.isEmpty() == true)
-        {
-            JOptionPane.showMessageDialog(tela, "Nenhum cliente cadastrado.", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
 
         if(ValidarCPF.validaCPF(cpf) == false)
         {
             JOptionPane.showMessageDialog(tela, "CPF inválido ou já cadastrado.", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        clientes.add(new Cliente(cpf,nome, senha));
+        Cliente cliente = new Cliente(nome,cpf, senha);
+        clientes.add(cliente);
         clientePersistence.save(clientes);
-        new TelaCliente();
+        new TelaCliente(cliente);
         tela.dispose();
     }
 
