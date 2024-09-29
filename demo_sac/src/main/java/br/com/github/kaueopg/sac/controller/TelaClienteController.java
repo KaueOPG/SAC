@@ -59,6 +59,7 @@ public class TelaClienteController {
                     clientes.add(cliente);
                     break;
                 }
+                
             new TelaCliente(cliente);
             tela.dispose();
             clientePersistence.save(clientes);

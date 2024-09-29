@@ -1,20 +1,20 @@
 package br.com.github.kaueopg.sac.persistence;
 
-import br.com.github.kaueopg.sac.model.Pedido;
-
 import com.google.gson.reflect.TypeToken;
+
+import br.com.github.kaueopg.sac.model.Consulta;
+
 import com.google.gson.Gson;
 import java.io.File;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PedidoPersistence implements Persistence<Pedido>{
-    
-    private static final String PATH = DIRECTORY + File.separator + "pedidos.json";
+public class ConsultaPersistence implements Persistence<Consulta>{
+    private static final String PATH = DIRECTORY + File.separator + "consultas.json";
 
     @Override
-    public void save(List<Pedido> itens) {
+    public void save(List<Consulta> itens) {
         Gson gson = new Gson();
         String json = gson.toJson(itens);
 
@@ -27,21 +27,21 @@ public class PedidoPersistence implements Persistence<Pedido>{
     }
 
     @Override
-    public List<Pedido> findAll() {
+    public List<Consulta> findAll() {
         Gson gson = new Gson();
         String json = Arquivo.le(PATH);
 
-        List<Pedido> pedidos = new ArrayList<>();
+        List<Consulta> consultas = new ArrayList<>();
         if (!json.trim().equals("")) {
-            Type tipoLista = new TypeToken<List<Pedido>>() {}.getType();
-            pedidos = gson.fromJson(json, tipoLista);
+            Type tipoLista = new TypeToken<List<Consulta>>() {}.getType();
+            consultas = gson.fromJson(json, tipoLista);
 
-            if (pedidos == null) {
-                pedidos = new ArrayList<>();
+            if (consultas == null) {
+                consultas = new ArrayList<>();
             }
         }
 
-        return pedidos;
-    }
+        return consultas;
 
+    }
 }

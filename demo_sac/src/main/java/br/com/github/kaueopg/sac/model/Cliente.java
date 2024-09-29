@@ -6,7 +6,7 @@ public class Cliente {
     private String nome;
     private String cpf;
     private String senha;
-    private List<Pedido> pedidos;
+    private List<ConsultaCliente> consultas;
 
     public Cliente() {
     }
@@ -41,12 +41,12 @@ public class Cliente {
         this.senha = senha;
     }
 
-    public List<Pedido> getPedidos() {
-        return pedidos;
+    public List<ConsultaCliente> getConsultas() {
+        return consultas;
     }
 
-    public void setPedidos(List<Pedido> pedidos) {
-        this.pedidos = pedidos;
+    public void setConsultas(List<ConsultaCliente> consultas) {
+        this.consultas = consultas;
     }
     
 }

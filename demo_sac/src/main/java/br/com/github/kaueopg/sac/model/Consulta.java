@@ -1,26 +1,52 @@
 package br.com.github.kaueopg.sac.model;
 
-import java.util.List;
-
-public class Consulta extends Produto{
+public abstract class Consulta{
     
-    private Medico medico;
+    private String data;
+    private String horario;
+    protected String cpfCliente;
+    protected String cpfMedico;
 
     public Consulta(){
     }
 
-    public Consulta(double preco, List<Tarefa> tarefas, Medico medico)
-    {
-        super(preco,tarefas);
-        this.medico = medico;
+    public Consulta(String data, String horario) {
+        this.data = data;
+        this.horario = horario;
     }
 
-    public Medico getMedico() {
-        return medico;
+    public abstract void adicionaCPF(String cpf);
+
+    public String getData() {
+        return data;
     }
 
-    public void setMedico(Medico medico) {
-        this.medico = medico;
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
+
+    public String getCpfCliente() {
+        return cpfCliente;
+    }
+
+    public void setCpfCliente(String cpfCliente) {
+        this.cpfCliente = cpfCliente;
+    }
+
+    public String getCpfMedico() {
+        return cpfMedico;
+    }
+
+    public void setCpfMedico(String cpfMedico) {
+        this.cpfMedico = cpfMedico;
     }
     
 }
