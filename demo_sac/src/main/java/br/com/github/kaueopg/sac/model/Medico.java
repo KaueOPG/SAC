@@ -2,30 +2,19 @@ package br.com.github.kaueopg.sac.model;
 
 import java.util.List;
 
-public class Medico {
+public class Medico extends Usuario{
     
-    private String nome;
     private String especializacao;
     private double valor;
-    private String cpf;
     private List<ConsultaMedico> consultas;
     
     public Medico() {
     }
 
-    public Medico(String nome, String especializacao, double valor, String cpf) {
-        this.nome = nome;
+    public Medico(String nome, String cpf, String senha, String especializacao, double valor) {
+        super(nome,cpf,senha);
         this.especializacao = especializacao;
         this.valor = valor;
-        this.cpf = cpf;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public String getEspecializacao() {
@@ -44,14 +33,6 @@ public class Medico {
         this.valor = valor;
     }
 
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
     public List<ConsultaMedico> getConsultas() {
         return consultas;
     }
@@ -59,5 +40,5 @@ public class Medico {
     public void setConsultas(List<ConsultaMedico> consultas) {
         this.consultas = consultas;
     }
-    
+
 }
