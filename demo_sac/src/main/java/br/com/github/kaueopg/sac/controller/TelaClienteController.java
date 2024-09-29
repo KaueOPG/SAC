@@ -2,6 +2,7 @@ package br.com.github.kaueopg.sac.controller;
 
 import java.util.List;
 
+import java.util.ArrayList;
 import br.com.github.kaueopg.sac.model.Cliente;
 import br.com.github.kaueopg.sac.persistence.ClientePersistence;
 import br.com.github.kaueopg.sac.view.TelaCliente;
@@ -11,17 +12,20 @@ public class TelaClienteController {
     private TelaCliente tela;
     private Cliente cliente;
 
-    public TelaClienteController(TelaCliente tela, Cliente cliente){
-        this.tela = tela;
+    public TelaClienteController( TelaCliente tela, Cliente cliente){
         this.cliente = cliente;
+        this.tela = tela;
     }
 
     public void excluirConta()
     {
         ClientePersistence clientePersistence = new ClientePersistence();
-        List<Cliente> clientes = clientePersistence.findAll();
-        clientes.remove(cliente);
-        clientePersistence.save(clientes);
+        List<Cliente> clientes = clientePersistence.findAll(); 
+        List<Cliente> clientesAtualizados = new ArrayList<>();
+        for(Cliente clienteDif: clientes)
+            if(clienteDif.getCpf().matches(cliente.getCpf()) == false)
+                clientesAtualizados.add(clienteDif);
+        clientePersistence.save(clientesAtualizados); 
         tela.dispose();
     }
 

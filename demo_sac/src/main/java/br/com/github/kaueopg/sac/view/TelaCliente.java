@@ -27,7 +27,7 @@ public class TelaCliente extends JFrame {
 
     public TelaCliente(Cliente cliente) {
         this.cliente = cliente;
-        control = new TelaClienteController(this, cliente);
+        control = new TelaClienteController(this,cliente);
         
         configurarJanela();
         criaPainelDados();  
