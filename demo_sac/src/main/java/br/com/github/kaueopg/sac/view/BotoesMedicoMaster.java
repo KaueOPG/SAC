@@ -56,11 +56,7 @@ public class BotoesMedicoMaster{
 
             int option = JOptionPane.showConfirmDialog(null, campos, "Editar Médico", JOptionPane.OK_CANCEL_OPTION);
             if (option == JOptionPane.OK_OPTION) {
-                modelo.setValueAt(nome.getText(), selectedRow, 0);
-                modelo.setValueAt(cpf.getText(), selectedRow, 1);
-                modelo.setValueAt(senha.getText(), selectedRow, 2);
-                modelo.setValueAt(especializacao.getText(), selectedRow, 3);
-                modelo.setValueAt(valor.getText(), selectedRow, 4);
+                MedicoControler.editar(nome.getText(), cpf.getText(), senha.getText(), especializacao.getText(), Double.parseDouble(valor.getText()));
             }
         }
     }

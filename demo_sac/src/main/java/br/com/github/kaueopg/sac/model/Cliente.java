@@ -1,24 +1,24 @@
 package br.com.github.kaueopg.sac.model;
 
-import java.util.List;
 
 public class Cliente extends Usuario{
 
-    private List<ConsultaCliente> consultas;
+    private String nome;
 
     public Cliente() {
     }
     
     public Cliente(String nome, String cpf, String senha) {
-        super(nome, cpf, senha);
+        super(cpf, senha);
+        this.nome = nome;
     }
 
-    public List<ConsultaCliente> getConsultas() {
-        return consultas;
+    public String getNome() {
+        return nome;
     }
 
-    public void setConsultas(List<ConsultaCliente> consultas) {
-        this.consultas = consultas;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
     
 }

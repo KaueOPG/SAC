@@ -87,6 +87,7 @@ public class TelaMaster extends JFrame {
         });
         painelBotoes.add(botaoAdicionar);
 
+        if(tipoTabela.matches("consulta") == false){
         JButton botaoEditar = new JButton("Editar");
         botaoEditar.addActionListener(new ActionListener() {
             @Override
@@ -95,11 +96,9 @@ public class TelaMaster extends JFrame {
                     BotoesMedicoMaster.editar(tabela,modelo, TelaMaster.this);
                 else if(tipoTabela.matches("cliente") == true)
                     BotoesClienteMaster.editar(tabela,modelo);
-                else if(tipoTabela.matches("consulta") == true)
-                    BotoesConsultaMaster.editar(tabela,modelo);
             }
         });
-        painelBotoes.add(botaoEditar);
+        painelBotoes.add(botaoEditar);}
 
         JButton botaoExcluir = new JButton("Excluir");
         botaoExcluir.addActionListener(new ActionListener() {

@@ -1,18 +1,17 @@
 package br.com.github.kaueopg.sac.model;
 
-import java.util.List;
-
 public class Medico extends Usuario{
     
+    private String nome;
     private String especializacao;
     private double valor;
-    private List<ConsultaMedico> consultas;
     
     public Medico() {
     }
 
     public Medico(String nome, String cpf, String senha, String especializacao, double valor) {
-        super(nome,cpf,senha);
+        super(cpf,senha);
+        this.nome = nome;
         this.especializacao = especializacao;
         this.valor = valor;
     }
@@ -33,12 +32,12 @@ public class Medico extends Usuario{
         this.valor = valor;
     }
 
-    public List<ConsultaMedico> getConsultas() {
-        return consultas;
+    public String getNome() {
+        return nome;
     }
 
-    public void setConsultas(List<ConsultaMedico> consultas) {
-        this.consultas = consultas;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
 }

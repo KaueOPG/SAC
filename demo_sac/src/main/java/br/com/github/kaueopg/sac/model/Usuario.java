@@ -1,25 +1,15 @@
 package br.com.github.kaueopg.sac.model;
 
 public class Usuario {
-    private String nome;
     private String cpf;
     private String senha;
     
     public Usuario() {
     }
 
-    public Usuario(String nome, String cpf, String senha) {
-        this.nome = nome;
+    public Usuario(String cpf, String senha) {
         this.cpf = cpf;
         this.senha = senha;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public String getCpf() {

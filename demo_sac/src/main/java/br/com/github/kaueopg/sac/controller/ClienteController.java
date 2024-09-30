@@ -4,7 +4,6 @@ import br.com.github.kaueopg.sac.model.Cliente;
 import br.com.github.kaueopg.sac.persistence.ClientePersistence;
 
 import java.util.List;
-import java.util.ArrayList;
 
 public class ClienteController {
 
@@ -20,23 +19,36 @@ public class ClienteController {
     }
 
     public static void excluir(Cliente cliente){
-        List<Cliente> clientesAtualizados = new ArrayList<>();
-        for(Cliente clienteDif: clientes)
-            if(clienteDif.getCpf().matches(cliente.getCpf()) == false)
-                clientesAtualizados.add(clienteDif);
-        clientePersistence.save(clientesAtualizados); 
+        clientes.remove(cliente);
+        clientePersistence.save(clientes); 
     }
 
-    public static void editar(Cliente cliente)
+    public static boolean editar(String nome, String cpf, String senha, Cliente cliente)
     {
-        for(Cliente clienteAntigo : clientes)
-        if(clienteAntigo.getCpf().matches(cliente.getCpf()))
+        Cliente clienteAntigo = cliente;
+        boolean verificaAlteracoes = false;
+        if(nome.isEmpty() == false)
+        {
+            cliente.setNome(nome);
+            verificaAlteracoes = true;
+        }
+        if(senha.isEmpty() == false)
+        {
+            cliente.setSenha(senha);
+            verificaAlteracoes = true;
+        }
+        if(ValidarCPF.validaCPF(cpf) == true && cpf.isEmpty() == false)
+        {
+            cliente.setCpf(cpf);
+            verificaAlteracoes = true;
+        }
+        if(verificaAlteracoes == true)
         {
             clientes.remove(clienteAntigo);
             clientes.add(cliente);
-            break;
+            clientePersistence.save(clientes);      
         }
-        clientePersistence.save(clientes);
+        return verificaAlteracoes;
     }
 
     public static boolean confereVazia()

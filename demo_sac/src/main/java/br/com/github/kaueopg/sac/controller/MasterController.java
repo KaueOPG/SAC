@@ -37,4 +37,9 @@ public class MasterController {
                 modelo.addRow(new Object[]{consulta.getCpfCliente(), consulta.getCpfMedico(), consulta.getData(), consulta.getHorario()});
         }
     }
+
+    public void editarMedico(String nome, String cpf, String senha, String especializacao, double valor)
+    {
+        MedicoControler.editar(nome, cpf, senha, especializacao, valor);
+    }
 }

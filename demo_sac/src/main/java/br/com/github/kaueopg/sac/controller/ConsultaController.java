@@ -4,7 +4,6 @@ import br.com.github.kaueopg.sac.model.Consulta;
 import br.com.github.kaueopg.sac.persistence.ConsultaPersistence;
 
 import java.util.List;
-import java.util.ArrayList;
 
 public class ConsultaController {
 
@@ -19,26 +18,8 @@ public class ConsultaController {
         return consulta;
     }
 
-    public static void editar(Consulta consulta)
-    {
-        for(Consulta consultaAntiga : consultas)
-            if(consultaAntiga == consulta)
-                {
-                    consultas.remove(consultaAntiga);
-                    consultas.add(consulta);
-                    break;
-                }
-        consultaPersistence.save(consultas);
-    }
-
     public static void excluir(Consulta consulta){
-        for(Consulta consultaAntiga : consultas)
-            if(consultaAntiga == consulta)
-            {
-                consultas.remove(consultaAntiga);
-                consultas.add(consulta);
-                break;
-            }
+        consultas.remove(consulta);
         consultaPersistence.save(consultas); 
     }
 

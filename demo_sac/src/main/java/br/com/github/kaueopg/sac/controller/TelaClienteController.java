@@ -21,29 +21,10 @@ public class TelaClienteController {
 
     public boolean editarDados(String nome, String cpf, String senha)
     {
-        boolean verificaAlteracoes = false;
-        if(nome.isEmpty() == false)
-        {
-            cliente.setNome(nome);
-            verificaAlteracoes = true;
-        }
-        if(senha.isEmpty() == false)
-        {
-            cliente.setSenha(senha);
-            verificaAlteracoes = true;
-        }
-        if(ValidarCPF.validaCPF(cpf) == true && cpf.isEmpty() == false)
-        {
-            cliente.setCpf(cpf);
-            verificaAlteracoes = true;
-        }
-        if(verificaAlteracoes == true)
-        {
-            ClienteController.editar(cliente);       
+        boolean verifica = ClienteController.editar(nome, cpf, senha, cliente);
+        if(verifica == true)
             new TelaCliente(cliente);
-            tela.dispose();
-        }
-        return verificaAlteracoes;
+        return verifica;
     }
     
 }

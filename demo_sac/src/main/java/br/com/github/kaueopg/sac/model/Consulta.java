@@ -1,6 +1,6 @@
 package br.com.github.kaueopg.sac.model;
 
-public abstract class Consulta{
+public class Consulta{
     
     private String data;
     private String horario;
@@ -10,19 +10,12 @@ public abstract class Consulta{
     public Consulta(){
     }
 
-    public Consulta(String data, String horario) {
-        this.data = data;
-        this.horario = horario;
-    }
-
     public Consulta(String data, String horario, String cpfCliente, String cpfMedico) {
         this.data = data;
         this.horario = horario;
         this.cpfCliente = cpfCliente;
         this.cpfMedico = cpfMedico;
     }
-
-    public abstract void adicionaCPF(String cpf);
 
     public String getData() {
         return data;
