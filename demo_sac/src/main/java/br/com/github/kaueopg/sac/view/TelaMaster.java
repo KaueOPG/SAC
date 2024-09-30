@@ -15,6 +15,8 @@ public class TelaMaster extends JFrame {
     private JPanel painelMedicos;
     private JPanel painelClientes;
     private JPanel painelConsultas;
+    private BotoesMedicoMaster botoesMedicoMaster;
+    private BotoesClienteMaster botoesClienteMaster;
 
     public TelaMaster() {
         control = new MasterController();
@@ -48,6 +50,9 @@ public class TelaMaster extends JFrame {
         JTable tabelaConsultas =new JTable(modeloConsultas);
         JPanel painelDadosMaster = criarPainelDadosMaster();
 
+        botoesMedicoMaster = new BotoesMedicoMaster(TelaMaster.this, modeloMedicos);
+        botoesClienteMaster = new BotoesClienteMaster(TelaMaster.this, modeloClientes);
+
         painelMedicos = criarPainel(colunasMedico, modeloMedicos, tabelaMedicos, "medico");
         painelClientes = criarPainel(colunasCliente, modeloClientes, tabelaClientes, "cliente");
         painelConsultas = criarPainel(colunasConsulta, modeloConsultas, tabelaConsultas, "consulta");
@@ -78,9 +83,9 @@ public class TelaMaster extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(tipoTabela.matches("medico") == true)
-                    BotoesMedicoMaster.adicionar(modelo, TelaMaster.this);
+                    botoesMedicoMaster.adicionar();
                 else if(tipoTabela.matches("cliente") == true)
-                    BotoesClienteMaster.adicionar(modelo);
+                    botoesClienteMaster.adicionar();
                 else if(tipoTabela.matches("consulta") == true)
                     BotoesConsultaMaster.adicionar(modelo);
             }
@@ -93,9 +98,9 @@ public class TelaMaster extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(tipoTabela.matches("medico") == true)
-                    BotoesMedicoMaster.editar(tabela,modelo, TelaMaster.this);
+                    botoesMedicoMaster.editar(tabela);
                 else if(tipoTabela.matches("cliente") == true)
-                    BotoesClienteMaster.editar(tabela,modelo);
+                    botoesClienteMaster.editar(tabela);
             }
         });
         painelBotoes.add(botaoEditar);}
@@ -105,9 +110,9 @@ public class TelaMaster extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(tipoTabela.matches("medico") == true)
-                    BotoesMedicoMaster.excluir(tabela, modelo);
+                    botoesMedicoMaster.excluir(tabela);
                 else if(tipoTabela.matches("cliente") == true)
-                    BotoesClienteMaster.excluir(tabela, modelo);
+                    botoesClienteMaster.excluir(tabela);
                 else if(tipoTabela.matches("consulta") == true)
                     BotoesConsultaMaster.excluir(tabela, modelo);
             }

@@ -15,13 +15,13 @@ public class TelaClienteController {
 
     public void excluirConta()
     {
-        ClienteController.excluir(cliente);
+        ClienteController.excluir(cliente.getCpf());
         tela.dispose();
     }
 
     public boolean editarDados(String nome, String cpf, String senha)
     {
-        boolean verifica = ClienteController.editar(nome, cpf, senha, cliente);
+        boolean verifica = ClienteController.editar(nome, cpf, senha, cliente.getCpf());
         if(verifica == true)
             new TelaCliente(cliente);
         return verifica;

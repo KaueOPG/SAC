@@ -5,7 +5,16 @@ import javax.swing.*;
 
 public class BotoesConsultaMaster{
 
-    public static void adicionar(DefaultTableModel modelo) {
+    private TelaMaster tela;
+    private DefaultTableModel modelo;
+
+    public BotoesConsultaMaster(TelaMaster tela, DefaultTableModel modelo)
+    {
+        this.tela = tela;
+        this.modelo = modelo;
+    }
+
+    public void adicionar() {
         JTextField cpfCliente = new JTextField();
         JTextField cpfMedico = new JTextField();
         JTextField data = new JTextField();
@@ -24,10 +33,10 @@ public class BotoesConsultaMaster{
         }
     }
 
-    public static void excluir(JTable tabela, DefaultTableModel modelo) {
+    public void excluir(JTable tabela) {
         int selectedRow = tabela.getSelectedRow();
         if (selectedRow >= 0) {
-            modelo.removeRow(selectedRow);
+            
         }
     }    
     

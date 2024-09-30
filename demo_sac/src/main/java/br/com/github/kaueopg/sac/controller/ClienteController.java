@@ -18,13 +18,15 @@ public class ClienteController {
         return cliente;
     }
 
-    public static void excluir(Cliente cliente){
+    public static void excluir(String cpf){
+        Cliente cliente = procurar(cpf);
         clientes.remove(cliente);
         clientePersistence.save(clientes); 
     }
 
-    public static boolean editar(String nome, String cpf, String senha, Cliente cliente)
+    public static boolean editar(String nome, String cpf, String senha, String cpfAtual)
     {
+        Cliente cliente = procurar(cpfAtual);
         Cliente clienteAntigo = cliente;
         boolean verificaAlteracoes = false;
         if(nome.isEmpty() == false)
@@ -54,5 +56,13 @@ public class ClienteController {
     public static boolean confereVazia()
     {
         return clientes.isEmpty();
+    }
+
+    public static Cliente procurar(String cpf)
+    {
+        for(Cliente cliente: clientes)
+            if(cliente.getCpf().matches(cpf) == true)
+                return cliente;
+        return new Cliente();
     }
 }

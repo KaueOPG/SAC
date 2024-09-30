@@ -1,11 +1,24 @@
 package br.com.github.kaueopg.sac.view;
 
 import javax.swing.table.DefaultTableModel;
+
+import br.com.github.kaueopg.sac.controller.ClienteController;
+import br.com.github.kaueopg.sac.controller.ValidarCPF;
+
 import javax.swing.*;
 
 public class BotoesClienteMaster{
 
-    public static void adicionar(DefaultTableModel modelo) {
+    private TelaMaster tela;
+    private DefaultTableModel modelo;
+
+    public BotoesClienteMaster(TelaMaster tela, DefaultTableModel modelo)
+    {
+        this.tela = tela;
+        this.modelo = modelo;
+    }
+
+    public void adicionar() {
         JTextField nome = new JTextField();
         JTextField cpf = new JTextField();
         JPasswordField senha = new JPasswordField();
@@ -18,16 +31,29 @@ public class BotoesClienteMaster{
     
         int option = JOptionPane.showConfirmDialog(null, campos, "Adicionar Cliente", JOptionPane.OK_CANCEL_OPTION);
         if (option == JOptionPane.OK_OPTION) {
-            modelo.addRow(new Object[]{nome.getText(), cpf.getText(), new String(senha.getPassword())});
+            if(ValidarCPF.validaCPF(cpf.getText()) == false)
+            {
+                JOptionPane.showMessageDialog(tela, "CPF inválido ou já cadastrado.", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            else
+            {
+                ClienteController.adicionar(nome.getText(), cpf.getText(), new String(senha.getPassword()));
+                new TelaMaster();
+                tela.dispose();
+            }
         }
     }
     
-    public static void editar(JTable tabela, DefaultTableModel modelo) {
+    public void editar(JTable tabela) {
+
         int selectedRow = tabela.getSelectedRow();
+        String cpfAtual = modelo.getValueAt(selectedRow, 1).toString();
+
         if (selectedRow >= 0) {
             JTextField nome = new JTextField(modelo.getValueAt(selectedRow, 0).toString());
             JTextField cpf = new JTextField(modelo.getValueAt(selectedRow, 1).toString());
-            JPasswordField senha = new JPasswordField(modelo.getValueAt(selectedRow, 2).toString());
+            JTextField senha = new JTextField(modelo.getValueAt(selectedRow, 2).toString());
     
             Object[] campos = {
                 "Nome:", nome,
@@ -37,17 +63,25 @@ public class BotoesClienteMaster{
     
             int option = JOptionPane.showConfirmDialog(null, campos, "Editar Cliente", JOptionPane.OK_CANCEL_OPTION);
             if (option == JOptionPane.OK_OPTION) {
-                modelo.setValueAt(nome.getText(), selectedRow, 0);
-                modelo.setValueAt(cpf.getText(), selectedRow, 1);
-                modelo.setValueAt(new String(senha.getPassword()), selectedRow, 2);
+                if(ValidarCPF.validaCPF(cpf.getText()) == false)
+                {
+                    JOptionPane.showMessageDialog(tela, "CPF inválido ou já cadastrado.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                if(ClienteController.editar(nome.getText(), cpf.getText(), senha.getText(), cpfAtual) == false)
+                    return;
+                new TelaMaster();
+                tela.dispose();
             }
         }
     }
 
-    public static void excluir(JTable tabela, DefaultTableModel modelo) {
+    public void excluir(JTable tabela) {
         int selectedRow = tabela.getSelectedRow();
         if (selectedRow >= 0) {
-            modelo.removeRow(selectedRow);
+            ClienteController.excluir(modelo.getValueAt(selectedRow, 1).toString());
+            new TelaMaster();
+            tela.dispose();
         }
     }    
     
