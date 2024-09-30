@@ -15,6 +15,13 @@ public abstract class Consulta{
         this.horario = horario;
     }
 
+    public Consulta(String data, String horario, String cpfCliente, String cpfMedico) {
+        this.data = data;
+        this.horario = horario;
+        this.cpfCliente = cpfCliente;
+        this.cpfMedico = cpfMedico;
+    }
+
     public abstract void adicionaCPF(String cpf);
 
     public String getData() {

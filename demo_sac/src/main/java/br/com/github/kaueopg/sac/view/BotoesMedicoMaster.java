@@ -1,10 +1,13 @@
 package br.com.github.kaueopg.sac.view;
 
+import br.com.github.kaueopg.sac.controller.MedicoControler;
+import br.com.github.kaueopg.sac.controller.ValidarCPF;
+
 import javax.swing.table.DefaultTableModel;
 import javax.swing.*;
 
 public class BotoesMedicoMaster{
-    public static void adicionar(DefaultTableModel modelo) {
+    public static void adicionar(DefaultTableModel modelo,  TelaMaster tela) {
         JTextField nome = new JTextField();
         JTextField cpf = new JTextField();
         JTextField senha = new JTextField();
@@ -21,11 +24,20 @@ public class BotoesMedicoMaster{
 
         int option = JOptionPane.showConfirmDialog(null, campos, "Adicionar Médico", JOptionPane.OK_CANCEL_OPTION);
         if (option == JOptionPane.OK_OPTION) {
-            modelo.addRow(new Object[]{nome.getText(), cpf.getText(), senha.getText(), especializacao.getText(), valor.getText()});
+            if(ValidarCPF.validaCPF(cpf.getText()) == false)
+            {
+                JOptionPane.showMessageDialog(tela, "CPF inválido ou já cadastrado.", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            else
+            {
+                MedicoControler.adicionar(nome.getText(), cpf.getText(), senha.getText(), especializacao.getText(), Double.parseDouble(valor.getText()));
+                modelo.addRow(new Object[]{nome.getText(), cpf.getText(), senha.getText(), especializacao.getText(), valor.getText()});
+            }
         }
     }
 
-    public static void editar(JTable tabela, DefaultTableModel modelo) {
+    public static void editar(JTable tabela, DefaultTableModel modelo, TelaMaster master) {
         int selectedRow = tabela.getSelectedRow();
         if (selectedRow >= 0) {
             JTextField nome = new JTextField(modelo.getValueAt(selectedRow, 0).toString());

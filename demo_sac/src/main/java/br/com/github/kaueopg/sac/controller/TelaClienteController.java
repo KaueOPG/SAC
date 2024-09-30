@@ -1,10 +1,6 @@
 package br.com.github.kaueopg.sac.controller;
 
-import java.util.List;
-
-import java.util.ArrayList;
 import br.com.github.kaueopg.sac.model.Cliente;
-import br.com.github.kaueopg.sac.persistence.ClientePersistence;
 import br.com.github.kaueopg.sac.view.TelaCliente;
 
 public class TelaClienteController {
@@ -19,13 +15,7 @@ public class TelaClienteController {
 
     public void excluirConta()
     {
-        ClientePersistence clientePersistence = new ClientePersistence();
-        List<Cliente> clientes = clientePersistence.findAll(); 
-        List<Cliente> clientesAtualizados = new ArrayList<>();
-        for(Cliente clienteDif: clientes)
-            if(clienteDif.getCpf().matches(cliente.getCpf()) == false)
-                clientesAtualizados.add(clienteDif);
-        clientePersistence.save(clientesAtualizados); 
+        ClienteController.excluir(cliente);
         tela.dispose();
     }
 
@@ -49,20 +39,9 @@ public class TelaClienteController {
         }
         if(verificaAlteracoes == true)
         {
-            ClientePersistence clientePersistence = new ClientePersistence();
-            List<Cliente> clientes = clientePersistence.findAll();
-
-            for(Cliente clienteAntigo : clientes)
-                if(clienteAntigo.getCpf().matches(cliente.getCpf()))
-                {
-                    clientes.remove(clienteAntigo);
-                    clientes.add(cliente);
-                    break;
-                }
-                
+            ClienteController.editar(cliente);       
             new TelaCliente(cliente);
             tela.dispose();
-            clientePersistence.save(clientes);
         }
         return verificaAlteracoes;
     }
