@@ -12,15 +12,15 @@ import java.util.List;
 
 public class MasterController {
 
-    private MedicoPersistence medicoPersistence = new MedicoPersistence();
-    private ClientePersistence clientePersistence = new ClientePersistence();
-    private ConsultaPersistence consultaPersistence = new ConsultaPersistence();
+    private static MedicoPersistence medicoPersistence = new MedicoPersistence();
+    private static ClientePersistence clientePersistence = new ClientePersistence();
+    private static ConsultaPersistence consultaPersistence = new ConsultaPersistence();
 
-    private List<Medico> medicos = medicoPersistence.findAll();
-    private List<Cliente> clientes = clientePersistence.findAll();
-    private List<Consulta> consultas = consultaPersistence.findAll();
+    private static List<Medico> medicos = medicoPersistence.findAll();
+    private static List<Cliente> clientes = clientePersistence.findAll();
+    private static List<Consulta> consultas = consultaPersistence.findAll();
 
-    public void imprimeTabela(DefaultTableModel modelo, String tipoTabela){
+    public static void imprimeTabela(DefaultTableModel modelo, String tipoTabela){
         if(tipoTabela.matches("medico") == true && medicos.isEmpty() == false)
         {
             for(Medico medico: medicos)
@@ -38,8 +38,13 @@ public class MasterController {
         }
     }
 
-    public void editarMedico(String nome, String cpf, String senha, String especializacao, double valor)
+    public static void editarMedico(String nome, String cpf, String senha, String especializacao, double valor, String cpfAtual)
     {
-        MedicoControler.editar(nome, cpf, senha, especializacao, valor);
+        MedicoControler.editar(nome, cpf, senha, especializacao, valor, cpfAtual);
+    }
+
+    public static  void excluir(String cpf)
+    {
+        MedicoControler.excluir(cpf);
     }
 }

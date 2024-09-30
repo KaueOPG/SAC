@@ -47,8 +47,7 @@ public class TelaMedico extends JFrame{
 
     private void criaPainelDados() {
         dados();
-        botaoAlterarSenha
-();
+        botaoAlterarSenha();
         painelDados.add(painelBotoes);
         getContentPane().add(painelDados, BorderLayout.WEST);
     }
@@ -103,7 +102,30 @@ public class TelaMedico extends JFrame{
     }
 
     private void editarDados() {
-        AbaAlterarSenha aba = new AbaAlterarSenha(this, control);
+        JDialog aba = new JDialog(TelaMedico.this, "Alterar Senha - Médico", true);
+        aba.setLayout(new GridLayout(4, 2, 5, 10));
+        aba.setSize(300, 200);
+        aba.setLocationRelativeTo(TelaMedico.this);
+
+        JPasswordField novaSenha = new JPasswordField();
+
+        add(new JLabel("Senha:"));
+        add(novaSenha);
+
+        JButton botaoSalvar = new JButton("Salvar");
+        botaoSalvar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (control.alterarSenha(new String(novaSenha.getPassword())) == true)
+                    dispose(); 
+                else {
+                    JOptionPane.showMessageDialog(TelaMedico.this, "Digite uma senha válida.", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        aba.add(new JLabel());
+        aba.add(botaoSalvar);
         aba.setVisible(true);
     }
 }

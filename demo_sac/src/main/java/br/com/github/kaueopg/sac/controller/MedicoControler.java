@@ -18,8 +18,8 @@ public class MedicoControler {
         return medico;
     }
 
-    public static boolean editar(String nome, String cpf, String senha, String especializacao, double valor) {
-        Medico medico = procurar(cpf);
+    public static boolean editar(String nome, String cpf, String senha, String especializacao, double valor, String cpfAtual) {
+        Medico medico = procurar(cpfAtual);
         Medico medicoAntigo = medico;
         boolean verificaAlteracoes = false;
     
@@ -58,7 +58,8 @@ public class MedicoControler {
     }
     
 
-    public static void excluir(Medico medico){
+    public static void excluir(String cpf){
+        Medico medico = procurar(cpf);
         medicos.remove(medico);
         medicoPersistence.save(medicos); 
     }

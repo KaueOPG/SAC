@@ -1,5 +1,6 @@
 package br.com.github.kaueopg.sac.view;
 
+import br.com.github.kaueopg.sac.controller.MasterController;
 import br.com.github.kaueopg.sac.controller.MedicoControler;
 import br.com.github.kaueopg.sac.controller.ValidarCPF;
 
@@ -39,6 +40,8 @@ public class BotoesMedicoMaster{
 
     public static void editar(JTable tabela, DefaultTableModel modelo, TelaMaster master) {
         int selectedRow = tabela.getSelectedRow();
+        String cpfAtual = modelo.getValueAt(selectedRow, 1).toString();
+
         if (selectedRow >= 0) {
             JTextField nome = new JTextField(modelo.getValueAt(selectedRow, 0).toString());
             JTextField cpf = new JTextField(modelo.getValueAt(selectedRow, 1).toString());
@@ -56,7 +59,7 @@ public class BotoesMedicoMaster{
 
             int option = JOptionPane.showConfirmDialog(null, campos, "Editar Médico", JOptionPane.OK_CANCEL_OPTION);
             if (option == JOptionPane.OK_OPTION) {
-                MedicoControler.editar(nome.getText(), cpf.getText(), senha.getText(), especializacao.getText(), Double.parseDouble(valor.getText()));
+                MedicoControler.editar(nome.getText(), cpf.getText(), senha.getText(), especializacao.getText(), Double.parseDouble(valor.getText()), cpfAtual);
             }
         }
     }
@@ -64,7 +67,7 @@ public class BotoesMedicoMaster{
     public static void excluir(JTable tabela, DefaultTableModel modelo) {
         int selectedRow = tabela.getSelectedRow();
         if (selectedRow >= 0) {
-            modelo.removeRow(selectedRow);
+            MedicoControler.excluir(modelo.getValueAt(selectedRow, 1).toString());
         }
     }
 }
