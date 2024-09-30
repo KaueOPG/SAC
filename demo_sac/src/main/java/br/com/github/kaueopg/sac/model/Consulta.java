@@ -4,8 +4,8 @@ public class Consulta{
     
     private String data;
     private String horario;
-    protected String cpfCliente;
-    protected String cpfMedico;
+    private String cpfCliente;
+    private String cpfMedico;
 
     public Consulta(){
     }

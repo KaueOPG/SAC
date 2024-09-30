@@ -18,7 +18,8 @@ public class ConsultaController {
         return consulta;
     }
 
-    public static void excluir(Consulta consulta){
+    public static void excluir(String cpfCliente, String cpfMedico, String data, String horario){
+        Consulta consulta = new Consulta(cpfCliente, cpfMedico, data, horario);
         consultas.remove(consulta);
         consultaPersistence.save(consultas); 
     }

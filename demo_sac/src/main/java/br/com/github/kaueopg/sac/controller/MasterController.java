@@ -38,12 +38,4 @@ public class MasterController {
                 modelo.addRow(new Object[]{consulta.getCpfCliente(), consulta.getCpfMedico(), consulta.getData(), consulta.getHorario()});
         }
     }
-
-    public boolean editarMedico(String nome, String cpf, String senha, String especializacao, double valor, String cpfAtual)
-    {
-        if(MedicoController.editar(nome, cpf, senha, especializacao, valor, cpfAtual) == false)
-            return false;
-        new TelaMaster();
-        return true;
-    }
 }

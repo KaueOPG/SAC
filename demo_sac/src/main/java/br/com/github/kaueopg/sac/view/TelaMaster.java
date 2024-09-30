@@ -17,6 +17,7 @@ public class TelaMaster extends JFrame {
     private JPanel painelConsultas;
     private BotoesMedicoMaster botoesMedicoMaster;
     private BotoesClienteMaster botoesClienteMaster;
+    private BotoesConsultaMaster botoesConsultaMaster;
 
     public TelaMaster() {
         control = new MasterController();
@@ -52,6 +53,7 @@ public class TelaMaster extends JFrame {
 
         botoesMedicoMaster = new BotoesMedicoMaster(TelaMaster.this, modeloMedicos);
         botoesClienteMaster = new BotoesClienteMaster(TelaMaster.this, modeloClientes);
+        botoesConsultaMaster = new BotoesConsultaMaster(TelaMaster.this, modeloConsultas);
 
         painelMedicos = criarPainel(colunasMedico, modeloMedicos, tabelaMedicos, "medico");
         painelClientes = criarPainel(colunasCliente, modeloClientes, tabelaClientes, "cliente");
@@ -87,7 +89,7 @@ public class TelaMaster extends JFrame {
                 else if(tipoTabela.matches("cliente") == true)
                     botoesClienteMaster.adicionar();
                 else if(tipoTabela.matches("consulta") == true)
-                    BotoesConsultaMaster.adicionar(modelo);
+                    botoesConsultaMaster.adicionar();
             }
         });
         painelBotoes.add(botaoAdicionar);
@@ -114,7 +116,7 @@ public class TelaMaster extends JFrame {
                 else if(tipoTabela.matches("cliente") == true)
                     botoesClienteMaster.excluir(tabela);
                 else if(tipoTabela.matches("consulta") == true)
-                    BotoesConsultaMaster.excluir(tabela, modelo);
+                    botoesConsultaMaster.excluir(tabela);
             }
         });
         painelBotoes.add(botaoExcluir);
