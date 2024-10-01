@@ -75,4 +75,9 @@ public class MedicoController {
                 return medico;
         return null;
     }
+
+    public static List<Medico> lista()
+    {
+        return medicos;
+    }
 }

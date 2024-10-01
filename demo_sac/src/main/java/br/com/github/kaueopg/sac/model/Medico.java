@@ -39,5 +39,4 @@ public class Medico extends Usuario{
     public void setNome(String nome) {
         this.nome = nome;
     }
-
 }

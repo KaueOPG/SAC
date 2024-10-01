@@ -5,7 +5,9 @@ import java.awt.event.ActionListener;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.table.DefaultTableModel;
 
+import br.com.github.kaueopg.sac.controller.ConsultaController;
 import br.com.github.kaueopg.sac.controller.TelaClienteController;
 import br.com.github.kaueopg.sac.model.Cliente;
 
@@ -20,8 +22,8 @@ public class TelaCliente extends JFrame {
     private JTextField nome;
     private JTextField cpf;
     private JPasswordField senha;
-    private JList<String> jlConsultas;
-    private DefaultListModel<String> consultasModel;
+    private JTable consultas;
+    private DefaultTableModel consultasTabela;
     private TelaClienteController control;
     private Cliente cliente;
 
@@ -97,6 +99,16 @@ public class TelaCliente extends JFrame {
 
     private void criaPainelAgendamentos() {
         campos();
+
+        String[] colunas = { "Medico", "Especialização", "Data", "Hora", "CPF Medico" };
+        consultasTabela = new DefaultTableModel(colunas, 0);
+        consultas = new JTable(consultasTabela);
+
+        painelAgendamentos.add(new JScrollPane(consultas), BorderLayout.CENTER);
+        getContentPane().add(painelAgendamentos, BorderLayout.EAST);
+
+        control.tabelaIniciar(consultasTabela);
+
         botoesAgendamentos();
         painelAgendamentos.add(agendamentosBotoes, BorderLayout.SOUTH);
         getContentPane().add(painelAgendamentos, BorderLayout.EAST);
@@ -107,11 +119,6 @@ public class TelaCliente extends JFrame {
         painelAgendamentos.setBorder(BorderFactory.createTitledBorder("Consultas Marcadas"));
         painelAgendamentos.setPreferredSize(new Dimension(300, 350));
         painelAgendamentos.setLayout(new BorderLayout());
-
-        consultasModel = new DefaultListModel<>();
-        jlConsultas = new JList<>(consultasModel);
-
-        painelAgendamentos.add(new JScrollPane(jlConsultas), BorderLayout.CENTER);
     }
 
     private void botoesAgendamentos()
@@ -120,7 +127,8 @@ public class TelaCliente extends JFrame {
         botaoMarcar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                marcarConsulta();
+                AbaCriarConsulta abaCriarConsulta = new AbaCriarConsulta(TelaCliente.this, cliente.getCpf());
+                abaCriarConsulta.setVisible(true);
             }
         });
         agendamentosBotoes.add(botaoMarcar);
@@ -129,17 +137,24 @@ public class TelaCliente extends JFrame {
         BotaoDesmarcar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                desmarcarConsulta();
+                excluir();
             }
         });
         agendamentosBotoes.add(BotaoDesmarcar);
     }
 
-    private void marcarConsulta() {
+    public void excluir() {
+    int selectedRow = consultas.getSelectedRow();
+    if (selectedRow >= 0) {
+        String cpfCliente = cliente.getCpf();
+        String cpfMedico = consultas.getValueAt(selectedRow, 4).toString();
+        String data = consultas.getValueAt(selectedRow, 2).toString();
+        String horario = consultas.getValueAt(selectedRow, 3).toString();
+        ConsultaController.excluir(cpfCliente, cpfMedico, data, horario);
+        new TelaCliente(cliente);
+        dispose();
     }
-
-    private void desmarcarConsulta() {
-    }
+    } 
 
     private void editarDados() {
         AbaEditarDados aba = new AbaEditarDados(this, control);
