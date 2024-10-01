@@ -1,4 +1,5 @@
 package br.com.github.kaueopg.sac.controller;
+//Kauê Oliveira Paraízo Garcia - 202262217B
 
 import br.com.github.kaueopg.sac.model.Medico;
 import br.com.github.kaueopg.sac.persistence.MedicoPersistence;
@@ -17,8 +18,17 @@ public class MedicoController {
         medicoPersistence.save(medicos);
     }
 
+    public static void excluir(String cpf){
+        Medico medico = procurar(cpf);
+        medicos.remove(medico);
+        medicoPersistence.save(medicos); 
+    }
+
     public static boolean editar(String nome, String cpf, String senha, String especializacao, double valor, String cpfAtual) {
         Medico medico = procurar(cpfAtual);
+        if(medico == null)
+            return false;
+
         Medico medicoAntigo = medico;
         boolean verificaAlteracoes = false;
     
@@ -54,13 +64,6 @@ public class MedicoController {
         }
     
         return verificaAlteracoes;
-    }
-    
-
-    public static void excluir(String cpf){
-        Medico medico = procurar(cpf);
-        medicos.remove(medico);
-        medicoPersistence.save(medicos); 
     }
 
     public static boolean confereVazia()

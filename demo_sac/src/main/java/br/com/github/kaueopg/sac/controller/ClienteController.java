@@ -1,4 +1,5 @@
 package br.com.github.kaueopg.sac.controller;
+//Kauê Oliveira Paraízo Garcia - 202262217B
 
 import br.com.github.kaueopg.sac.model.Cliente;
 import br.com.github.kaueopg.sac.persistence.ClientePersistence;
@@ -64,5 +65,10 @@ public class ClienteController {
             if(cliente.getCpf().matches(cpf) == true)
                 return cliente;
         return null;
+    }
+
+    public static List<Cliente> lista()
+    {
+        return clientes;
     }
 }

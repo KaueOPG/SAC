@@ -1,4 +1,5 @@
 package br.com.github.kaueopg.sac.view;
+//Kauê Oliveira Paraízo Garcia - 202262217B
 
 import br.com.github.kaueopg.sac.controller.TelaInicialController;
 
@@ -11,10 +12,11 @@ import java.awt.event.ActionListener;
 public class TelaInicial extends JFrame {
 
     private JPanel painel = new JPanel();
-    Border borda = BorderFactory.createLineBorder(Color.GRAY, 1);
+    private Border borda = BorderFactory.createLineBorder(Color.GRAY, 1);
 
     private JTextField cpf;
     private JPasswordField senha;
+
     private TelaInicialController control = new TelaInicialController(TelaInicial.this);
 
     public TelaInicial() {
@@ -39,7 +41,6 @@ public class TelaInicial extends JFrame {
     }
 
     public void campos() {
-
         JLabel labelBemVindo = new JLabel("Bem-vindo ao SAC", JLabel.CENTER);
         painel.add(labelBemVindo);
 
@@ -53,7 +54,6 @@ public class TelaInicial extends JFrame {
     }
 
     private void botoes() {
-
         JButton botaoEntrar = new JButton("Entrar");
         botaoEntrar.setBorder(borda);
         botaoEntrar.addActionListener(new ActionListener() {

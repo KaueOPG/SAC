@@ -1,5 +1,5 @@
 package br.com.github.kaueopg.sac.model;
-
+//Kauê Oliveira Paraízo Garcia - 202262217B
 
 public class Cliente extends Usuario{
 

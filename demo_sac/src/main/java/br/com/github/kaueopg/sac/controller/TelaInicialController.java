@@ -1,4 +1,5 @@
 package br.com.github.kaueopg.sac.controller;
+//Kauê Oliveira Paraízo Garcia - 202262217B
 
 import br.com.github.kaueopg.sac.model.Cliente;
 import br.com.github.kaueopg.sac.model.Master;
@@ -36,7 +37,7 @@ public class TelaInicialController {
         }
 
         Cliente cliente = ClienteController.procurar(cpf);
-        if(cliente != null)
+        if(cliente != null && cliente.getSenha().matches(senha) == true)
         {
             new TelaCliente(cliente);
             tela.dispose();
@@ -44,7 +45,7 @@ public class TelaInicialController {
         } 
 
         Medico medico = MedicoController.procurar(cpf);
-        if(medico != null)
+        if(medico != null && medico.getSenha().matches(senha) == true)
         {
             new TelaMedico(medico);
             tela.dispose();

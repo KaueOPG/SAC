@@ -1,14 +1,13 @@
 package br.com.github.kaueopg.sac.controller;
+//Kauê Oliveira Paraízo Garcia - 202262217B
 
 import br.com.github.kaueopg.sac.view.TelaMedico;
 import br.com.github.kaueopg.sac.model.Consulta;
 import br.com.github.kaueopg.sac.model.Medico;
-import br.com.github.kaueopg.sac.persistence.ConsultaPersistence;
-import br.com.github.kaueopg.sac.persistence.MedicoPersistence;
 
 import java.util.*;
 
-import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class TelaMedicoController {
@@ -22,37 +21,25 @@ public class TelaMedicoController {
         this.medico = medico;
     }
 
-    public boolean alterarSenha(String senhaNova)
+    public void alterarSenha(String senhaNova)
     {
-        if(senhaNova.isEmpty() == true)
-             return false;
-
-        MedicoPersistence medicoPersistence = new MedicoPersistence();
-        List<Medico> medicos = medicoPersistence.findAll();
-
-        for(Medico medicoAntigo : medicos)
-            if(medicoAntigo.getCpf().matches(medico.getCpf()))
-            {
-                medicos.remove(medicoAntigo);
-                medico.setSenha(senhaNova);
-                medicos.add(medico);
-                medicoPersistence.save(medicos);
-                break;
-            }
-            
-        new TelaMedico(medico);
+        if(senhaNova.isBlank() == true)
+        {
+            JOptionPane.showMessageDialog(tela, "Digite uma senha válida.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        MedicoController.editar(medico.getNome(), medico.getCpf(), senhaNova, medico.getEspecializacao(), medico.getValor(), medico.getCpf());
         tela.dispose();
-        return true;
+        new TelaMedico(medico);
     }
 
     public void tabela(DefaultTableModel consultasTabela)
     {
-        ConsultaPersistence consultaPersistence = new ConsultaPersistence();
-        List<Consulta> consultas = consultaPersistence.findAll();
+        List<Consulta> consultas = ConsultaController.lista();
 
         for(Consulta consulta: consultas)
             if(consulta.getCpfMedico().matches(medico.getCpf()) == true)
-                consultasTabela.addRow(new Object[] { consulta.getCpfCliente(), consulta.getData(), consulta.getHorario() });
+                consultasTabela.addRow(new Object[] { consulta.getCpfCliente(), consulta.getData(), consulta.getHorario()});
     }
 
 }

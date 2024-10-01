@@ -1,4 +1,5 @@
 package br.com.github.kaueopg.sac.controller;
+//Kauê Oliveira Paraízo Garcia - 202262217B
 
 import br.com.github.kaueopg.sac.model.Consulta;
 import br.com.github.kaueopg.sac.persistence.ConsultaPersistence;
@@ -19,7 +20,7 @@ public class ConsultaController {
     }
 
     public static void excluir(String cpfCliente, String cpfMedico, String data, String horario){
-        Consulta consulta = encontar(cpfCliente, cpfMedico, data, horario);
+        Consulta consulta = procurar(cpfCliente, cpfMedico, data, horario);
         consultas.remove(consulta);
         consultaPersistence.save(consultas); 
     }
@@ -29,12 +30,17 @@ public class ConsultaController {
         return consultas.isEmpty();
     }
 
-    public static Consulta encontar(String cpfCliente, String cpfMedico, String data, String horario)
+    public static Consulta procurar(String cpfCliente, String cpfMedico, String data, String horario)
     {
         for(Consulta consulta: consultas)
             if(consulta.getCpfCliente().matches(cpfCliente) == true && consulta.getCpfMedico().matches(cpfMedico) == true)
                 if(consulta.getHorario().matches(horario) == true && consulta.getData().matches(data) == true)
                     return consulta;
         return null;
+    }
+
+    public static List<Consulta> lista()
+    {
+        return consultas;
     }
 }

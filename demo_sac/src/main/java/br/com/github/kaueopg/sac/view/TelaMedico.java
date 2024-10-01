@@ -1,4 +1,5 @@
 package br.com.github.kaueopg.sac.view;
+//Kauê Oliveira Paraízo Garcia - 202262217B
 
 import br.com.github.kaueopg.sac.controller.TelaMedicoController;
 import br.com.github.kaueopg.sac.model.Medico;
@@ -20,8 +21,6 @@ public class TelaMedico extends JFrame{
     private JTextField nome;
     private JTextField cpf;
     private JPasswordField senha;
-    private JTable Consultas;
-    private DefaultTableModel consultasTabela;
     private TelaMedicoController control;
     private Medico medico;
 
@@ -31,7 +30,7 @@ public class TelaMedico extends JFrame{
         
         configurarJanela();
         criaPainelDados();  
-        criaPainelAgendamentos();  
+        criaPainelConsultas();  
 
         setVisible(true);
         pack();
@@ -77,18 +76,18 @@ public class TelaMedico extends JFrame{
         botaoEditar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                editarDados();
+                alterarSenha();
             }
         });
         painelBotoes.add(botaoEditar);
     }
 
-    private void criaPainelAgendamentos() {
+    private void criaPainelConsultas() {
         campos();
 
         String[] colunas = { "CPF do Cliente", "Data", "Hora" };
-        consultasTabela = new DefaultTableModel(colunas, 0);
-        Consultas = new JTable(consultasTabela);
+        DefaultTableModel consultasTabela = new DefaultTableModel(colunas, 0);
+        JTable Consultas = new JTable(consultasTabela);
 
         painelAgendamentos.add(new JScrollPane(Consultas), BorderLayout.CENTER);
         getContentPane().add(painelAgendamentos, BorderLayout.EAST);
@@ -103,7 +102,7 @@ public class TelaMedico extends JFrame{
         painelAgendamentos.setLayout(new BorderLayout());
     }
 
-    private void editarDados() {
+    private void alterarSenha() {
         JDialog aba = new JDialog(TelaMedico.this, "Alterar Senha - Médico", true);
         aba.setLayout(new GridLayout(4, 2, 5, 10));
         aba.setSize(300, 200);
@@ -118,11 +117,7 @@ public class TelaMedico extends JFrame{
         botaoSalvar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (control.alterarSenha(new String(novaSenha.getPassword())) == true)
-                    dispose(); 
-                else {
-                    JOptionPane.showMessageDialog(TelaMedico.this, "Digite uma senha válida.", "Erro", JOptionPane.ERROR_MESSAGE);
-                }
+                control.alterarSenha(new String(novaSenha.getPassword()));
             }
         });
 
