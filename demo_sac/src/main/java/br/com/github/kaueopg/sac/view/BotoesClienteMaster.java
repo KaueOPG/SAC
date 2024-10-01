@@ -48,12 +48,13 @@ public class BotoesClienteMaster{
     public void editar(JTable tabela) {
 
         int selectedRow = tabela.getSelectedRow();
-        String cpfAtual = modelo.getValueAt(selectedRow, 1).toString();
 
         if (selectedRow >= 0) {
-            JTextField nome = new JTextField(modelo.getValueAt(selectedRow, 0).toString());
-            JTextField cpf = new JTextField(modelo.getValueAt(selectedRow, 1).toString());
-            JTextField senha = new JTextField(modelo.getValueAt(selectedRow, 2).toString());
+            String cpfAtual = tabela.getValueAt(selectedRow, 1).toString();
+
+            JTextField nome = new JTextField(tabela.getValueAt(selectedRow, 0).toString());
+            JTextField cpf = new JTextField(tabela.getValueAt(selectedRow, 1).toString());
+            JTextField senha = new JTextField(tabela.getValueAt(selectedRow, 2).toString());
     
             Object[] campos = {
                 "Nome:", nome,
@@ -79,10 +80,9 @@ public class BotoesClienteMaster{
     public void excluir(JTable tabela) {
         int selectedRow = tabela.getSelectedRow();
         if (selectedRow >= 0) {
-            ClienteController.excluir(modelo.getValueAt(selectedRow, 1).toString());
+            ClienteController.excluir(tabela.getValueAt(selectedRow, 1).toString());
             new TelaMaster();
             tela.dispose();
         }
-    }    
-    
+    }       
 }

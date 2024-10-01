@@ -51,14 +51,14 @@ public class BotoesMedicoMaster{
 
     public void editar(JTable tabela) {
         int selectedRow = tabela.getSelectedRow();
-        String cpfAtual = modelo.getValueAt(selectedRow, 1).toString();
 
         if (selectedRow >= 0) {
-            JTextField nome = new JTextField(modelo.getValueAt(selectedRow, 0).toString());
-            JTextField cpf = new JTextField(modelo.getValueAt(selectedRow, 1).toString());
-            JTextField senha = new JTextField(modelo.getValueAt(selectedRow, 2).toString());
-            JTextField especializacao = new JTextField(modelo.getValueAt(selectedRow, 3).toString());
-            JTextField valor = new JTextField(modelo.getValueAt(selectedRow, 4).toString());
+            String cpfAtual = tabela.getValueAt(selectedRow, 1).toString();
+            JTextField nome = new JTextField(tabela.getValueAt(selectedRow, 0).toString());
+            JTextField cpf = new JTextField(tabela.getValueAt(selectedRow, 1).toString());
+            JTextField senha = new JTextField(tabela.getValueAt(selectedRow, 2).toString());
+            JTextField especializacao = new JTextField(tabela.getValueAt(selectedRow, 3).toString());
+            JTextField valor = new JTextField(tabela.getValueAt(selectedRow, 4).toString());
 
             Object[] campos = {
                 "Nome:", nome,
@@ -79,14 +79,15 @@ public class BotoesMedicoMaster{
                     return;
                 new TelaMaster();
                 tela.dispose();
-            }
+            }else {
+                JOptionPane.showMessageDialog(tela, "Selecione um médico para editar.", "Erro", JOptionPane.WARNING_MESSAGE);}
         }
     }
 
     public void excluir(JTable tabela) {
         int selectedRow = tabela.getSelectedRow();
         if (selectedRow >= 0) {
-            MedicoController.excluir(modelo.getValueAt(selectedRow, 1).toString());
+            MedicoController.excluir(tabela.getValueAt(selectedRow, 1).toString());
             new TelaMaster();
             tela.dispose();
         }

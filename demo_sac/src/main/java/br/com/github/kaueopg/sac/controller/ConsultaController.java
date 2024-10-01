@@ -28,4 +28,13 @@ public class ConsultaController {
     {
         return consultas.isEmpty();
     }
+
+    public static Consulta encontar(String cpfCliente, String cpfMedico, String data, String horario)
+    {
+        for(Consulta consulta: consultas)
+            if(consulta.getCpfCliente().matches(cpfCliente) == true && consulta.getCpfMedico().matches(cpfMedico) == true)
+                if(consulta.getHorario().matches(horario) == true && consulta.getData().matches(data) == true)
+                    return consulta;
+        return null;
+    }
 }

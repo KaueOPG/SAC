@@ -6,7 +6,6 @@ import br.com.github.kaueopg.sac.model.Medico;
 import br.com.github.kaueopg.sac.persistence.ClientePersistence;
 import br.com.github.kaueopg.sac.persistence.ConsultaPersistence;
 import br.com.github.kaueopg.sac.persistence.MedicoPersistence;
-import br.com.github.kaueopg.sac.view.TelaMaster;
 
 import javax.swing.table.DefaultTableModel;
 import java.util.List;

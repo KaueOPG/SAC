@@ -41,10 +41,10 @@ public class BotoesConsultaMaster{
     public void excluir(JTable tabela) {
         int selectedRow = tabela.getSelectedRow();
         if (selectedRow >= 0) {
-            String cpfCliente = modelo.getValueAt(selectedRow, 0).toString();
-            String cpfMedico = modelo.getValueAt(selectedRow, 1).toString();
-            String data = modelo.getValueAt(selectedRow, 2).toString();
-            String horario = modelo.getValueAt(selectedRow, 3).toString();
+            String cpfCliente = tabela.getValueAt(selectedRow, 0).toString();
+            String cpfMedico = tabela.getValueAt(selectedRow, 1).toString();
+            String data = tabela.getValueAt(selectedRow, 2).toString();
+            String horario = tabela.getValueAt(selectedRow, 3).toString();
             ConsultaController.excluir(cpfCliente, cpfMedico, data, horario);
             new TelaMaster();
             tela.dispose();
