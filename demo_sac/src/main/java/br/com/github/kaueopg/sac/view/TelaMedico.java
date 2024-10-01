@@ -109,8 +109,8 @@ public class TelaMedico extends JFrame{
 
         JPasswordField novaSenha = new JPasswordField();
 
-        add(new JLabel("Senha:"));
-        add(novaSenha);
+        aba.add(new JLabel("Senha:"));
+        aba.add(novaSenha);
 
         JButton botaoSalvar = new JButton("Salvar");
         botaoSalvar.addActionListener(new ActionListener() {

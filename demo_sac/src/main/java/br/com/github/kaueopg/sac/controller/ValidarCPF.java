@@ -3,6 +3,7 @@ package br.com.github.kaueopg.sac.controller;
 import java.util.List;
 
 import br.com.github.kaueopg.sac.model.Cliente;
+import br.com.github.kaueopg.sac.model.Master;
 import br.com.github.kaueopg.sac.model.Medico;
 import br.com.github.kaueopg.sac.persistence.ClientePersistence;
 import br.com.github.kaueopg.sac.persistence.MedicoPersistence;
@@ -18,7 +19,9 @@ public class ValidarCPF {
         MedicoPersistence medicoPersistence = new MedicoPersistence();
         List<Medico> medicos = medicoPersistence.findAll();
 
-        if(cpf.matches(regex) == false)
+        Master master = new Master();
+
+        if(cpf.matches(regex) == false || master.getCpf().matches(cpf) == true)
             return false;
         
         for(Cliente cliente: clientes)

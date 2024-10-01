@@ -29,13 +29,14 @@ public class TelaMedicoController {
             if(medicoAntigo.getCpf().matches(medico.getCpf()))
             {
                 medicos.remove(medicoAntigo);
+                medico.setSenha(senhaNova);
                 medicos.add(medico);
+                medicoPersistence.save(medicos);
                 break;
             }
             
         new TelaMedico(medico);
         tela.dispose();
-        medicoPersistence.save(medicos);
         return true;
     }
 

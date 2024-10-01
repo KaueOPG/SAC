@@ -49,7 +49,6 @@ public class TelaMaster extends JFrame {
         JTable tabelaMedicos = new JTable(modeloMedicos);
         JTable tabelaClientes = new JTable(modeloClientes);
         JTable tabelaConsultas =new JTable(modeloConsultas);
-        JPanel painelDadosMaster = criarPainelDadosMaster();
 
         botoesMedicoMaster = new BotoesMedicoMaster(TelaMaster.this, modeloMedicos);
         botoesClienteMaster = new BotoesClienteMaster(TelaMaster.this, modeloClientes);
@@ -62,7 +61,6 @@ public class TelaMaster extends JFrame {
         tabelaGeral.addTab("Médicos", painelMedicos);
         tabelaGeral.addTab("Clientes", painelClientes);
         tabelaGeral.addTab("Consultas", painelConsultas);
-        tabelaGeral.addTab("Dados Master", painelDadosMaster);
 
         add(tabelaGeral);
     }
@@ -123,36 +121,5 @@ public class TelaMaster extends JFrame {
 
         painel.add(scrollPane, BorderLayout.CENTER);
         painel.add(painelBotoes, BorderLayout.SOUTH);
-    }
-
-    private JPanel criarPainelDadosMaster() {
-        JPanel painel = new JPanel(new GridBagLayout()); 
-        GridBagConstraints gbc = new GridBagConstraints();
-
-        JTextField nomeMaster = new JTextField(20);
-        JTextField cpfMaster = new JTextField(20);
-        JPasswordField senhaMaster = new JPasswordField(20);
-
-        gbc.insets = new Insets(10, 10, 10, 10);
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-
-        painel.add(new JLabel("Nome Master:"), gbc);
-        gbc.gridx = 1;
-        painel.add(nomeMaster, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        painel.add(new JLabel("CPF Master:"), gbc);
-        gbc.gridx = 1;
-        painel.add(cpfMaster, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        painel.add(new JLabel("Senha Master:"), gbc);
-        gbc.gridx = 1;
-        painel.add(senhaMaster, gbc);
-
-        return painel;
     }
 }

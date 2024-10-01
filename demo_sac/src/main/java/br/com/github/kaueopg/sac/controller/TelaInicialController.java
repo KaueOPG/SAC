@@ -22,8 +22,8 @@ public class TelaInicialController {
     public void entrar(String cpf, String senha){
 
         Master master = new Master();
-        if(master.getCpfMaster().matches(cpf) == true)
-            if(master.getSenhaMaster().matches(senha) == true)
+        if(master.getCpf().matches(cpf) == true)
+            if(master.getSenha().matches(senha) == true)
             {
                 new TelaMaster();
                 tela.dispose();
