@@ -9,6 +9,7 @@ import java.util.List;
 
 import br.com.github.kaueopg.sac.controller.ConsultaController;
 import br.com.github.kaueopg.sac.controller.MedicoController;
+import br.com.github.kaueopg.sac.model.Cliente;
 import br.com.github.kaueopg.sac.model.Medico;
 
 public class AbaCriarConsulta extends JDialog {
@@ -16,7 +17,7 @@ public class AbaCriarConsulta extends JDialog {
     private JTextField data;
     private JTextField horario;
     
-    public AbaCriarConsulta(TelaCliente tela, String cpfCliente) {
+    public AbaCriarConsulta(TelaCliente tela, String cpfCliente, Cliente cliente) {
         super(tela, "Nova consulta", true);
         setLayout(new GridLayout(4, 2, 5, 10));
         setSize(300, 200);
@@ -45,7 +46,8 @@ public class AbaCriarConsulta extends JDialog {
             public void actionPerformed(ActionEvent e) {
             if(data.getText().isEmpty() == false && horario.getText().isEmpty() == false){
                 ConsultaController.adicionar(cpfCliente, cpfs.get(medicoSelecao.getSelectedIndex()), data.getText(), horario.getText());
-                dispose();
+                tela.dispose();
+                new TelaCliente(cliente);
             }
             }
         });

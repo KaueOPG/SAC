@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 import br.com.github.kaueopg.sac.controller.TelaClienteController;
+import br.com.github.kaueopg.sac.model.Cliente;
 
 public class AbaEditarDados extends JDialog {
 
@@ -13,7 +14,7 @@ public class AbaEditarDados extends JDialog {
     private JTextField novoCPF;
     private JPasswordField novaSenha;
     
-    public AbaEditarDados(TelaCliente tela, TelaClienteController control) {
+    public AbaEditarDados(TelaCliente tela, TelaClienteController control, Cliente cliente) {
         super(tela, "Editar Dados do Cliente", true);
         setLayout(new GridLayout(4, 2, 5, 10));
         setSize(300, 200);
@@ -35,7 +36,10 @@ public class AbaEditarDados extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (control.editarDados(novoNome.getText(), novoCPF.getText(), new String(novaSenha.getPassword())) == true)
-                    dispose(); 
+                {
+                    tela.dispose(); 
+                    new TelaCliente(cliente);
+                }
                 else {
                     JOptionPane.showMessageDialog(AbaEditarDados.this, "CPF inválido ou já cadastrado.", "Erro", JOptionPane.ERROR_MESSAGE);
                 }

@@ -127,7 +127,7 @@ public class TelaCliente extends JFrame {
         botaoMarcar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AbaCriarConsulta abaCriarConsulta = new AbaCriarConsulta(TelaCliente.this, cliente.getCpf());
+                AbaCriarConsulta abaCriarConsulta = new AbaCriarConsulta(TelaCliente.this, cliente.getCpf(), cliente);
                 abaCriarConsulta.setVisible(true);
             }
         });
@@ -157,7 +157,7 @@ public class TelaCliente extends JFrame {
     } 
 
     private void editarDados() {
-        AbaEditarDados aba = new AbaEditarDados(this, control);
+        AbaEditarDados aba = new AbaEditarDados(this, control, cliente);
         aba.setVisible(true);
     }
 }
