@@ -1,15 +1,19 @@
 package br.com.github.kaueopg.sac.view;
+//Kauê Oliveira Paraízo Garcia - 202262217B
+
+import br.com.github.kaueopg.sac.controller.MedicoController;
+import br.com.github.kaueopg.sac.controller.TelaClienteController;
+import br.com.github.kaueopg.sac.model.Cliente;
+import br.com.github.kaueopg.sac.model.Medico;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
-
-import br.com.github.kaueopg.sac.controller.ConsultaController;
-import br.com.github.kaueopg.sac.controller.TelaClienteController;
-import br.com.github.kaueopg.sac.model.Cliente;
+import java.util.List;
 
 public class TelaCliente extends JFrame {
 
@@ -18,12 +22,11 @@ public class TelaCliente extends JFrame {
     private JPanel painelAgendamentos = new JPanel();
     private JPanel agendamentosBotoes = new JPanel();
     private Border borda = BorderFactory.createLineBorder(Color.GRAY, 1);
-    
+
     private JTextField nome;
     private JTextField cpf;
     private JPasswordField senha;
     private JTable consultas;
-    private DefaultTableModel consultasTabela;
     private TelaClienteController control;
     private Cliente cliente;
 
@@ -101,7 +104,7 @@ public class TelaCliente extends JFrame {
         campos();
 
         String[] colunas = { "Medico", "Especialização", "Data", "Hora", "CPF Medico" };
-        consultasTabela = new DefaultTableModel(colunas, 0);
+        DefaultTableModel consultasTabela = new DefaultTableModel(colunas, 0);
         consultas = new JTable(consultasTabela);
 
         painelAgendamentos.add(new JScrollPane(consultas), BorderLayout.CENTER);
@@ -127,8 +130,7 @@ public class TelaCliente extends JFrame {
         botaoMarcar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AbaCriarConsulta abaCriarConsulta = new AbaCriarConsulta(TelaCliente.this, cliente.getCpf(), cliente);
-                abaCriarConsulta.setVisible(true);
+                criarConsulta();
             }
         });
         agendamentosBotoes.add(botaoMarcar);
@@ -137,28 +139,82 @@ public class TelaCliente extends JFrame {
         BotaoDesmarcar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                excluir();
+                int selectedRow = consultas.getSelectedRow();
+                if (selectedRow >= 0) {
+                    control.excluirTabela(cliente.getCpf(), consultas.getValueAt(selectedRow, 4).toString(), consultas.getValueAt(selectedRow, 2).toString(), consultas.getValueAt(selectedRow, 3).toString());
+                }
             }
         });
         agendamentosBotoes.add(BotaoDesmarcar);
     }
 
-    public void excluir() {
-    int selectedRow = consultas.getSelectedRow();
-    if (selectedRow >= 0) {
-        String cpfCliente = cliente.getCpf();
-        String cpfMedico = consultas.getValueAt(selectedRow, 4).toString();
-        String data = consultas.getValueAt(selectedRow, 2).toString();
-        String horario = consultas.getValueAt(selectedRow, 3).toString();
-        ConsultaController.excluir(cpfCliente, cpfMedico, data, horario);
-        new TelaCliente(cliente);
-        dispose();
-    }
-    } 
-
     private void editarDados() {
-        AbaEditarDados aba = new AbaEditarDados(this, control, cliente);
-        aba.setVisible(true);
+        JDialog abaEditar = new JDialog(this, "Editar Dados do Cliente", true);
+        abaEditar = new JDialog(this, "Editar Dados do Cliente", true);
+        abaEditar.setLayout(new GridLayout(4, 2, 5, 10));
+        abaEditar.setSize(300, 200);
+        abaEditar.setLocationRelativeTo(this);
+
+        JTextField novoNome = new JTextField();
+        JTextField novoCPF = new JTextField();
+        JPasswordField novaSenha = new JPasswordField();
+
+        abaEditar.add(new JLabel("Nome:"));
+        abaEditar.add(novoNome);
+        abaEditar.add(new JLabel("CPF:"));
+        abaEditar.add(novoCPF);
+        abaEditar.add(new JLabel("Senha:"));
+        abaEditar.add(novaSenha);
+
+        JButton botaoSalvar = new JButton("Salvar");
+        botaoSalvar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                control.editarDados(novoNome.getText(), novoCPF.getText(), new String(novaSenha.getPassword()));
+            }
+        });
+
+        abaEditar.add(new JLabel());
+        abaEditar.add(botaoSalvar);
+        abaEditar.setVisible(true);
+    }
+
+    private void criarConsulta()
+    {
+        JDialog abaCriarConsulta = new JDialog(this, "Nova consulta", true);
+        abaCriarConsulta.setLayout(new GridLayout(4, 2, 5, 10));
+        abaCriarConsulta.setSize(300, 200);
+        abaCriarConsulta.setLocationRelativeTo(this);
+
+        JComboBox<String> medicoSelecao= new JComboBox<>();
+        JTextField data = new JTextField();
+        JTextField horario = new JTextField();
+
+        List<String> cpfs = new ArrayList<>();
+        for (Medico medico : MedicoController.lista()) {
+            cpfs.add(medico.getCpf());
+            medicoSelecao.addItem(medico.getNome() + "|" + medico.getEspecializacao() + "|" + medico.getValor());
+        }
+
+        abaCriarConsulta.add(new JLabel("Medico:"));
+        abaCriarConsulta.add(medicoSelecao);
+        abaCriarConsulta.add(new JLabel("Data:"));
+        abaCriarConsulta.add(data);
+        abaCriarConsulta.add(new JLabel("Horario:"));
+        abaCriarConsulta.add(horario);
+
+        JButton botaoSalvar = new JButton("Salvar");
+        botaoSalvar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                control.criarConsulta(cpfs.get(medicoSelecao.getSelectedIndex()), data.getText(), horario.getText());
+            }
+        });
+
+        abaCriarConsulta.add(new JLabel());
+        abaCriarConsulta.add(botaoSalvar);
+
+        abaCriarConsulta.setVisible(true);
     }
 }
     
