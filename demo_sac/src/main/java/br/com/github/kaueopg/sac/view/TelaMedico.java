@@ -8,20 +8,20 @@ import java.awt.event.ActionListener;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.table.DefaultTableModel;
 
 public class TelaMedico extends JFrame{
 
     private JPanel painelDados = new JPanel();
     private JPanel painelBotoes = new JPanel();
     private JPanel painelAgendamentos = new JPanel();
-    private JPanel agendamentosBotoes = new JPanel();
     private Border borda = BorderFactory.createLineBorder(Color.GRAY, 1);
     
     private JTextField nome;
     private JTextField cpf;
     private JPasswordField senha;
-    private JList<String> jlConsultas;
-    private DefaultListModel<String> consultasModel;
+    private JTable Consultas;
+    private DefaultTableModel consultasTabela;
     private TelaMedicoController control;
     private Medico medico;
 
@@ -85,8 +85,15 @@ public class TelaMedico extends JFrame{
 
     private void criaPainelAgendamentos() {
         campos();
-        painelAgendamentos.add(agendamentosBotoes, BorderLayout.SOUTH);
+
+        String[] colunas = { "CPF do Cliente", "Data", "Hora" };
+        consultasTabela = new DefaultTableModel(colunas, 0);
+        Consultas = new JTable(consultasTabela);
+
+        painelAgendamentos.add(new JScrollPane(Consultas), BorderLayout.CENTER);
         getContentPane().add(painelAgendamentos, BorderLayout.EAST);
+
+        control.tabela(consultasTabela);
     }
 
     private void campos()
@@ -94,11 +101,6 @@ public class TelaMedico extends JFrame{
         painelAgendamentos.setBorder(BorderFactory.createTitledBorder("Consultas Marcadas"));
         painelAgendamentos.setPreferredSize(new Dimension(300, 350));
         painelAgendamentos.setLayout(new BorderLayout());
-
-        consultasModel = new DefaultListModel<>();
-        jlConsultas = new JList<>(consultasModel);
-
-        painelAgendamentos.add(new JScrollPane(jlConsultas), BorderLayout.CENTER);
     }
 
     private void editarDados() {
