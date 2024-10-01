@@ -73,6 +73,6 @@ public class MedicoController {
         for(Medico medico: medicos)
             if(medico.getCpf().matches(cpf) == true)
                 return medico;
-        return new Medico();
+        return null;
     }
 }

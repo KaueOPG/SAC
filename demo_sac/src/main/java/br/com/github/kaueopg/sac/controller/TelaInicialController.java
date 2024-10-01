@@ -2,13 +2,13 @@ package br.com.github.kaueopg.sac.controller;
 
 import br.com.github.kaueopg.sac.model.Cliente;
 import br.com.github.kaueopg.sac.model.Master;
-import br.com.github.kaueopg.sac.persistence.ClientePersistence;
+import br.com.github.kaueopg.sac.model.Medico;
 import br.com.github.kaueopg.sac.view.TelaCadastro;
 import br.com.github.kaueopg.sac.view.TelaCliente;
 import br.com.github.kaueopg.sac.view.TelaInicial;
 import br.com.github.kaueopg.sac.view.TelaMaster;
+import br.com.github.kaueopg.sac.view.TelaMedico;
 
-import java.util.List;
 import javax.swing.JOptionPane;
 
 public class TelaInicialController {
@@ -29,24 +29,28 @@ public class TelaInicialController {
                 tela.dispose();
                 return;
             }
-
-        ClientePersistence clientePersistence = new ClientePersistence();
-        List<Cliente> clientes = clientePersistence.findAll();
         
-        if(ClienteController.confereVazia() == true){
-            JOptionPane.showMessageDialog(tela, "Nenhum cliente cadastrado.", "Erro", JOptionPane.ERROR_MESSAGE);
+        if(ClienteController.confereVazia() == true && MedicoController.confereVazia() == true){
+            JOptionPane.showMessageDialog(tela, "Nenhum usuário cadastrado.", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        for(Cliente cliente: clientes){
-            if(cliente.getCpf().matches(cpf) == true)
-                if(cliente.getSenha().matches(senha) == true)
-                {
-                    new TelaCliente(cliente);
-                    tela.dispose();
-                    return;
-                }
-        }
+        Cliente cliente = ClienteController.procurar(cpf);
+        if(cliente != null)
+        {
+            new TelaCliente(cliente);
+            tela.dispose();
+            return;
+        } 
+
+        Medico medico = MedicoController.procurar(cpf);
+        if(medico != null)
+        {
+            new TelaMedico(medico);
+            tela.dispose();
+            return;
+        } 
+        
         JOptionPane.showMessageDialog(tela, "CPF ou senha incorretos.", "Erro", JOptionPane.ERROR_MESSAGE);
     }
 

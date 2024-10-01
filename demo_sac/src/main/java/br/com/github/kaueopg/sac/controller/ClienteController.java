@@ -63,6 +63,6 @@ public class ClienteController {
         for(Cliente cliente: clientes)
             if(cliente.getCpf().matches(cpf) == true)
                 return cliente;
-        return new Cliente();
+        return null;
     }
 }

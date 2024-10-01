@@ -12,14 +12,14 @@ public class ConsultaController {
 
     public static Consulta adicionar(String cpfCliente, String cpfMedico, String data, String horario)
     {
-        Consulta consulta = new Consulta(cpfCliente, cpfMedico, data, horario);
+        Consulta consulta = new Consulta(data, horario, cpfCliente, cpfMedico);
         consultas.add(consulta);
         consultaPersistence.save(consultas);
         return consulta;
     }
 
     public static void excluir(String cpfCliente, String cpfMedico, String data, String horario){
-        Consulta consulta = new Consulta(cpfCliente, cpfMedico, data, horario);
+        Consulta consulta = encontar(cpfCliente, cpfMedico, data, horario);
         consultas.remove(consulta);
         consultaPersistence.save(consultas); 
     }

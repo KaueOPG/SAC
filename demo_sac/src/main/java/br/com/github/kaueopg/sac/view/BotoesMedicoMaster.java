@@ -77,10 +77,7 @@ public class BotoesMedicoMaster{
                 }
                 if(MedicoController.editar(nome.getText(), cpf.getText(), senha.getText(), especializacao.getText(), Double.parseDouble(valor.getText()), cpfAtual) == false)
                     return;
-                new TelaMaster();
-                tela.dispose();
-            }else {
-                JOptionPane.showMessageDialog(tela, "Selecione um médico para editar.", "Erro", JOptionPane.WARNING_MESSAGE);}
+            }
         }
     }
 
