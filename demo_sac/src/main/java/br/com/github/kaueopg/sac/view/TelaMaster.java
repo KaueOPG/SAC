@@ -11,16 +11,11 @@ import javax.swing.*;
 public class TelaMaster extends JFrame {
 
     private MasterController control;
+
     private JTabbedPane tabelaGeral;
-    private JPanel painelMedicos;
-    private JPanel painelClientes;
-    private JPanel painelConsultas;
-    private BotoesMedicoMaster botoesMedicoMaster;
-    private BotoesClienteMaster botoesClienteMaster;
-    private BotoesConsultaMaster botoesConsultaMaster;
 
     public TelaMaster() {
-        control = new MasterController();
+        control = new MasterController(this);
         configurarJanela();
         criaTabela();
         setVisible(true);
@@ -50,13 +45,9 @@ public class TelaMaster extends JFrame {
         JTable tabelaClientes = new JTable(modeloClientes);
         JTable tabelaConsultas =new JTable(modeloConsultas);
 
-        botoesMedicoMaster = new BotoesMedicoMaster(TelaMaster.this, modeloMedicos);
-        botoesClienteMaster = new BotoesClienteMaster(TelaMaster.this, modeloClientes);
-        botoesConsultaMaster = new BotoesConsultaMaster(TelaMaster.this, modeloConsultas);
-
-        painelMedicos = criarPainel(colunasMedico, modeloMedicos, tabelaMedicos, "medico");
-        painelClientes = criarPainel(colunasCliente, modeloClientes, tabelaClientes, "cliente");
-        painelConsultas = criarPainel(colunasConsulta, modeloConsultas, tabelaConsultas, "consulta");
+        JPanel painelMedicos = criarPainel(colunasMedico, modeloMedicos, tabelaMedicos, "medico");
+        JPanel painelClientes = criarPainel(colunasCliente, modeloClientes, tabelaClientes, "cliente");
+        JPanel painelConsultas = criarPainel(colunasConsulta, modeloConsultas, tabelaConsultas, "consulta");
 
         tabelaGeral.addTab("Médicos", painelMedicos);
         tabelaGeral.addTab("Clientes", painelClientes);
@@ -83,11 +74,11 @@ public class TelaMaster extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(tipoTabela.matches("medico") == true)
-                    botoesMedicoMaster.adicionar();
+                    control.adicionarMedico();
                 else if(tipoTabela.matches("cliente") == true)
-                    botoesClienteMaster.adicionar();
+                    control.adicionarCliente();
                 else if(tipoTabela.matches("consulta") == true)
-                    botoesConsultaMaster.adicionar();
+                    control.adicionarConsutas();
             }
         });
         painelBotoes.add(botaoAdicionar);
@@ -98,9 +89,9 @@ public class TelaMaster extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(tipoTabela.matches("medico") == true)
-                    botoesMedicoMaster.editar(tabela);
+                    control.editarMedico(tabela);
                 else if(tipoTabela.matches("cliente") == true)
-                    botoesClienteMaster.editar(tabela);
+                    control.editarCliente(tabela);
             }
         });
         painelBotoes.add(botaoEditar);}
@@ -109,12 +100,10 @@ public class TelaMaster extends JFrame {
         botaoExcluir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(tipoTabela.matches("medico") == true)
-                    botoesMedicoMaster.excluir(tabela);
-                else if(tipoTabela.matches("cliente") == true)
-                    botoesClienteMaster.excluir(tabela);
-                else if(tipoTabela.matches("consulta") == true)
-                    botoesConsultaMaster.excluir(tabela);
+                int selectedRow = tabela.getSelectedRow();
+                if(selectedRow >= 0) {
+                    control.excluir(tabela, selectedRow, tipoTabela);
+                }
             }
         });
         painelBotoes.add(botaoExcluir);
