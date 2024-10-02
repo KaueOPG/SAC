@@ -183,7 +183,7 @@ public class TelaCliente extends JFrame {
     {
         JDialog abaCriarConsulta = new JDialog(this, "Nova consulta", true);
         abaCriarConsulta.setLayout(new GridLayout(4, 2, 5, 10));
-        abaCriarConsulta.setSize(300, 200);
+        abaCriarConsulta.setSize(400, 200);
         abaCriarConsulta.setLocationRelativeTo(this);
 
         JComboBox<String> medicoSelecao= new JComboBox<>();

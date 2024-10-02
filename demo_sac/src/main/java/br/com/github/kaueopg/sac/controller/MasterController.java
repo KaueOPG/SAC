@@ -1,4 +1,5 @@
 package br.com.github.kaueopg.sac.controller;
+//Kauê Oliveira Paraízo Garcia - 202262217B
 
 import br.com.github.kaueopg.sac.model.Cliente;
 import br.com.github.kaueopg.sac.model.Consulta;
@@ -101,15 +102,14 @@ public class MasterController {
     
             int option = JOptionPane.showConfirmDialog(null, campos, "Editar Cliente", JOptionPane.OK_CANCEL_OPTION);
             if (option == JOptionPane.OK_OPTION) {
-                if(ValidarCPF.validaCPF(cpf.getText()) == false)
+                if(ClienteController.editar(nome.getText(), cpf.getText(), senha.getText(), cpfAtual) == false)
                 {
                     JOptionPane.showMessageDialog(tela, "CPF inválido ou já cadastrado.", "Erro", JOptionPane.ERROR_MESSAGE);
-                    return;
                 }
-                if(ClienteController.editar(nome.getText(), cpf.getText(), senha.getText(), cpfAtual) == false)
-                    return;
-                new TelaMaster();
-                tela.dispose();
+                else{
+                    new TelaMaster();
+                    tela.dispose();
+                }
             }
         }
     }
@@ -188,13 +188,11 @@ public class MasterController {
 
             int option = JOptionPane.showConfirmDialog(null, campos, "Editar Médico", JOptionPane.OK_CANCEL_OPTION);
             if (option == JOptionPane.OK_OPTION) {
-                if(ValidarCPF.validaCPF(cpf.getText()) == false)
+                if(MedicoController.editar(nome.getText(), cpf.getText(), senha.getText(), especializacao.getText(), Double.parseDouble(valor.getText()), cpfAtual) == false)
                 {
                     JOptionPane.showMessageDialog(tela, "CPF inválido ou já cadastrado.", "Erro", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-                if(MedicoController.editar(nome.getText(), cpf.getText(), senha.getText(), especializacao.getText(), Double.parseDouble(valor.getText()), cpfAtual) == false)
-                    return;
                 new TelaMaster();
                 tela.dispose();
             }
